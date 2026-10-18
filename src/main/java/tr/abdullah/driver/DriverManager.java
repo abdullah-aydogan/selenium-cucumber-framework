@@ -12,6 +12,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Thread-safe WebDriver factory managing browser sessions across parallel threads.
@@ -21,14 +23,8 @@ public class DriverManager {
     private static final Logger logger = LogManager.getLogger(DriverManager.class);
     private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
-    // Private constructor to prevent direct instantiation
     private DriverManager() {}
 
-    /**
-     * Initializes and returns the WebDriver instance for the current thread.
-     *
-     * @return ThreadLocal WebDriver instance
-     */
     public static WebDriver getDriver() {
         if (driverThreadLocal.get() == null) {
             initDriver();
@@ -36,9 +32,6 @@ public class DriverManager {
         return driverThreadLocal.get();
     }
 
-    /**
-     * Creates a new WebDriver instance based on browser configuration.
-     */
     public static void initDriver() {
         String browser = ConfigurationReader.getProperty("browser");
         if (browser == null) {
@@ -67,7 +60,7 @@ public class DriverManager {
                 driver = new EdgeDriver(edgeOptions);
             }
             case "chrome-headless" -> {
-                ChromeOptions headlessChrome = new ChromeOptions();
+                ChromeOptions headlessChrome = createChromeOptions();
                 headlessChrome.addArguments("--headless=new");
                 headlessChrome.addArguments("--window-size=1920,1080");
                 headlessChrome.addArguments("--disable-gpu");
@@ -76,21 +69,16 @@ public class DriverManager {
                 driver = new ChromeDriver(headlessChrome);
             }
             case "chrome" -> {
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--start-maximized");
-                chromeOptions.addArguments("--disable-notifications");
-                chromeOptions.addArguments("--remote-allow-origins=*");
+                ChromeOptions chromeOptions = createChromeOptions();
                 driver = new ChromeDriver(chromeOptions);
             }
             default -> {
                 logger.warn("Unsupported browser '{}' supplied. Defaulting to Chrome.", browser);
-                ChromeOptions defaultOptions = new ChromeOptions();
-                defaultOptions.addArguments("--start-maximized");
+                ChromeOptions defaultOptions = createChromeOptions();
                 driver = new ChromeDriver(defaultOptions);
             }
         }
 
-        // Configure standard timeouts from config.properties
         long pageLoadTimeout = Long.parseLong(ConfigurationReader.getProperty("page.load.timeout"));
         long implicitWait = Long.parseLong(ConfigurationReader.getProperty("implicit.wait"));
 
@@ -103,8 +91,27 @@ public class DriverManager {
     }
 
     /**
-     * Quits the WebDriver session and clears the ThreadLocal reference.
+     * Builds ChromeOptions with security alerts, password bubbles, and leak checks disabled.
      */
+    private static ChromeOptions createChromeOptions() {
+        ChromeOptions options = new ChromeOptions();
+
+        // Disable password save prompts and leak detection alerts
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
+        prefs.put("profile.password_manager_leak_detection", false);
+        options.setExperimentalOption("prefs", prefs);
+
+        options.addArguments("--start-maximized");
+        options.addArguments("--disable-notifications");
+        options.addArguments("--disable-save-password-bubble");
+        options.addArguments("--disable-features=PasswordLeakDetection");
+        options.addArguments("--remote-allow-origins=*");
+
+        return options;
+    }
+
     public static void quitDriver() {
         WebDriver driver = driverThreadLocal.get();
         if (driver != null) {
