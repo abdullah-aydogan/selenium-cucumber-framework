@@ -1,0 +1,18 @@
+{
+  "username_input": {
+    "type": "id",
+    "value": "user-name"
+  },
+  "password_input": {
+    "type": "id",
+    "value": "password"
+  },
+  "login_button": {
+    "type": "id",
+    "value": "login-button"
+  },
+  "error_message": {
+    "type": "css",
+    "value": "[data-test='error']"
+  }
+}
