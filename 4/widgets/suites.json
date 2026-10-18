@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"2fee97f02d68c9e356ee01e5367316fe","name":"Authentication and Access Verification","statistic":{"failed":0,"broken":0,"skipped":0,"passed":4,"unknown":0,"total":4}},{"uid":"e2edcfd0e8de930fea4d3d1f73ca328f","name":"End-to-End Purchase Flow","statistic":{"failed":0,"broken":0,"skipped":0,"passed":3,"unknown":0,"total":3}}]}

@@ -1,0 +1,6 @@
+"BROKEN","EPIC","FAILED","FEATURE","PASSED","SKIPPED","STORY","UNKNOWN"
+"0","","0","End-to-End Purchase Flow","1","0","Checkout fails when customer information is incomplete","0"
+"0","","0","End-to-End Purchase Flow","1","0","Complete successful order checkout flow","0"
+"0","","0","Authentication and Access Verification","1","0","Successful login with standard active credentials","0"
+"0","","0","End-to-End Purchase Flow","1","0","Complete order checkout using dynamically generated customer data","0"
+"0","","0","Authentication and Access Verification","3","0","Failed login attempts with invalid or locked credentials","0"

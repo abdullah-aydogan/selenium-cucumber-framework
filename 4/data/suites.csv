@@ -1,0 +1,22 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"  As an authenticated customer
+  I want to select items, add them to my cart, and complete checkout
+  So that I can successfully purchase products","5921","Checkout fails when customer information is incomplete","","2026-10-18","passed","2026-10-18","","End-to-End Purchase Flow","Checkout fails when customer information is incomplete",""
+"  As an authenticated customer
+  I want to select items, add them to my cart, and complete checkout
+  So that I can successfully purchase products","5507","Complete successful order checkout flow","","2026-10-18","passed","2026-10-18","","End-to-End Purchase Flow","Complete successful order checkout flow",""
+"  As a registered user on SauceDemo
+  I want to log into the application with valid credentials
+  And receive clear error feedback when providing invalid credentials","1301","Successful login with standard active credentials","","2026-10-18","passed","2026-10-18","","Authentication and Access Verification","Successful login with standard active credentials",""
+"  As an authenticated customer
+  I want to select items, add them to my cart, and complete checkout
+  So that I can successfully purchase products","3521","Complete order checkout using dynamically generated customer data","","2026-10-18","passed","2026-10-18","","End-to-End Purchase Flow","Complete order checkout using dynamically generated customer data",""
+"  As a registered user on SauceDemo
+  I want to log into the application with valid credentials
+  And receive clear error feedback when providing invalid credentials","1332","Failed login attempts with invalid or locked credentials","","2026-10-18","passed","2026-10-18","","Authentication and Access Verification","Failed login attempts with invalid or locked credentials",""
+"  As a registered user on SauceDemo
+  I want to log into the application with valid credentials
+  And receive clear error feedback when providing invalid credentials","1597","Failed login attempts with invalid or locked credentials","","2026-10-18","passed","2026-10-18","","Authentication and Access Verification","Failed login attempts with invalid or locked credentials",""
+"  As a registered user on SauceDemo
+  I want to log into the application with valid credentials
+  And receive clear error feedback when providing invalid credentials","1207","Failed login attempts with invalid or locked credentials","","2026-10-18","passed","2026-10-18","","Authentication and Access Verification","Failed login attempts with invalid or locked credentials",""
