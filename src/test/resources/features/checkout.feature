@@ -32,3 +32,14 @@ Feature: End-to-End Purchase Flow
     And user fills customer details with first name "", last name "Doe", and postal code "10001"
     And user clicks continue on checkout overview
     Then a checkout error stating "Error: First Name is required" should be displayed
+
+  @e2e @datafaker
+  Scenario: Complete order checkout using dynamically generated customer data
+    When user adds product "Sauce Labs Fleece Jacket" to the cart
+    And user navigates to the shopping cart
+    Then product "Sauce Labs Fleece Jacket" should be visible in the cart
+    When user proceeds to checkout
+    And user fills customer details with dynamically generated fake data
+    And user clicks continue on checkout overview
+    And user completes the order by clicking finish
+    Then the order confirmation message should be "Thank you for your order!"

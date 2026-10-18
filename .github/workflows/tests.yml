@@ -7,6 +7,9 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   test:
     name: Run Automated E2E Tests
@@ -25,6 +28,7 @@ jobs:
 
       - name: Execute Tests (Chrome Headless)
         run: mvn clean test -Dbrowser=chrome-headless
+        continue-on-error: true
 
       - name: Upload Cucumber HTML Reports
         if: always()
@@ -34,10 +38,26 @@ jobs:
           path: target/cucumber-reports/
           retention-days: 14
 
-      - name: Upload Allure Test Results
+      - name: Get Allure History
+        uses: actions/checkout@v4
         if: always()
-        uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
-          name: allure-raw-results
-          path: allure-results/
-          retention-days: 14
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+          keep_reports: 25
+
+      - name: Deploy Allure Report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history

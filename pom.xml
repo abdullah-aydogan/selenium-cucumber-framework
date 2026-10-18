@@ -22,6 +22,7 @@
         <jackson.version>2.17.2</jackson.version>
         <allure.version>2.29.0</allure.version>
         <aspectj.version>1.9.22</aspectj.version>
+        <datafaker.version>2.4.2</datafaker.version>
         <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
     </properties>
 
@@ -92,6 +93,13 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
             <scope>runtime</scope>
+        </dependency>
+
+        <!-- DataFaker for dynamic and realistic test data generation -->
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>${datafaker.version}</version>
         </dependency>
     </dependencies>
 

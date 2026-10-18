@@ -53,4 +53,12 @@ public class CheckoutStepDefs {
         String actualError = checkoutPage.getErrorMessage();
         Assert.assertEquals(actualError, expectedError, "Checkout error message mismatch!");
     }
+
+    @And("user fills customer details with dynamically generated fake data")
+    public void userFillsCustomerDetailsWithDynamicallyGeneratedFakeData() {
+        String firstName = tr.abdullah.utils.DataGenerator.getFirstName();
+        String lastName =  tr.abdullah.utils.DataGenerator.getLastName();
+        String postalCode =  tr.abdullah.utils.DataGenerator.getPostalCode();
+        checkoutPage.fillCustomerInformation(firstName, lastName, postalCode);
+    }
 }
