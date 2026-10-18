@@ -1,0 +1,30 @@
+{
+  "first_name_input": {
+    "type": "id",
+    "value": "first-name"
+  },
+  "last_name_input": {
+    "type": "id",
+    "value": "last-name"
+  },
+  "postal_code_input": {
+    "type": "id",
+    "value": "postal-code"
+  },
+  "continue_button": {
+    "type": "id",
+    "value": "continue"
+  },
+  "finish_button": {
+    "type": "id",
+    "value": "finish"
+  },
+  "complete_header": {
+    "type": "css",
+    "value": ".complete-header"
+  },
+  "error_message": {
+    "type": "css",
+    "value": "[data-test='error']"
+  }
+}

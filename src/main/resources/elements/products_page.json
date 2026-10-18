@@ -1,0 +1,22 @@
+{
+  "page_title": {
+    "type": "css",
+    "value": ".title"
+  },
+  "shopping_cart_link": {
+    "type": "css",
+    "value": ".shopping_cart_link"
+  },
+  "shopping_cart_badge": {
+    "type": "css",
+    "value": ".shopping_cart_badge"
+  },
+  "add_to_cart_by_product_name": {
+    "type": "xpath",
+    "value": "//div[text()='%s']/ancestor::div[@class='inventory_item']//button[contains(@data-test, 'add-to-cart')]"
+  },
+  "remove_button_by_product_name": {
+    "type": "xpath",
+    "value": "//div[text()='%s']/ancestor::div[@class='inventory_item']//button[contains(@data-test, 'remove')]"
+  }
+}

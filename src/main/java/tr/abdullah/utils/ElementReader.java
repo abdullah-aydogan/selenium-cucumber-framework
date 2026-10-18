@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * ElementReader parses JSON repository files located under resources/elements/
- * and dynamically constructs Selenium By locator objects.
+ * and dynamically constructs Selenium By locator objects with optional string formatting.
  */
 public class ElementReader {
 
@@ -21,12 +21,6 @@ public class ElementReader {
     // Cache to prevent reading JSON files multiple times from disk
     private static final ConcurrentHashMap<String, JsonNode> cache = new ConcurrentHashMap<>();
 
-    /**
-     * Loads the target JSON file from classpath into a JsonNode.
-     *
-     * @param pageName Name of the page JSON file (without extension)
-     * @return Root JsonNode of the element definition file
-     */
     private static JsonNode loadPageElements(String pageName) {
         return cache.computeIfAbsent(pageName, key -> {
             String filePath = "elements/" + key + ".json";
@@ -44,14 +38,19 @@ public class ElementReader {
         });
     }
 
+    public static By getLocator(String pageName, String elementName) {
+        return getLocator(pageName, elementName, new Object[0]);
+    }
+
     /**
-     * Returns a Selenium By locator for a given page and element key.
+     * Resolves a Selenium By locator with dynamic argument formatting (e.g. for dynamic XPath/CSS).
      *
-     * @param pageName    Name of the page file (e.g. "login_page")
-     * @param elementName Element identifier key in the JSON file (e.g. "username_input")
+     * @param pageName    Name of the page file (e.g. "products_page")
+     * @param elementName Element identifier key in the JSON file
+     * @param params      Dynamic format arguments replacing placeholders like %s
      * @return Selenium By instance
      */
-    public static By getLocator(String pageName, String elementName) {
+    public static By getLocator(String pageName, String elementName, Object... params) {
         JsonNode rootNode = loadPageElements(pageName);
         JsonNode elementNode = rootNode.get(elementName);
 
@@ -64,7 +63,11 @@ public class ElementReader {
         String type = elementNode.get("type").asText().trim().toLowerCase();
         String value = elementNode.get("value").asText();
 
-        logger.debug("Resolving locator for [{}.{}] -> Type: {}, Value: {}", pageName, elementName, type, value);
+        if (params != null && params.length > 0) {
+            value = String.format(value, params);
+        }
+
+        logger.debug("Resolving locator for [{}.{}] -> Type: {}, Formatted Value: {}", pageName, elementName, type, value);
 
         return switch (type) {
             case "id" -> By.id(value);

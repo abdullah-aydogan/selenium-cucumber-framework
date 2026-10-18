@@ -1,0 +1,18 @@
+{
+  "cart_title": {
+    "type": "css",
+    "value": ".title"
+  },
+  "cart_item_by_name": {
+    "type": "xpath",
+    "value": "//div[@class='inventory_item_name' and text()='%s']"
+  },
+  "checkout_button": {
+    "type": "id",
+    "value": "checkout"
+  },
+  "continue_shopping_button": {
+    "type": "id",
+    "value": "continue-shopping"
+  }
+}
