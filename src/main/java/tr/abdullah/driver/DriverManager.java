@@ -33,8 +33,12 @@ public class DriverManager {
     }
 
     public static void initDriver() {
-        String browser = ConfigurationReader.getProperty("browser");
-        if (browser == null) {
+        // Priority: Command Line (-Dbrowser=...) > config.properties > default (chrome)
+        String browser = System.getProperty("browser");
+        if (browser == null || browser.trim().isEmpty()) {
+            browser = ConfigurationReader.getProperty("browser");
+        }
+        if (browser == null || browser.trim().isEmpty()) {
             browser = "chrome";
         }
         browser = browser.trim().toLowerCase();
